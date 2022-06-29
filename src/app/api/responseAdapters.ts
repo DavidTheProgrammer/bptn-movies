@@ -1,6 +1,6 @@
 import {createEntityAdapter} from "@reduxjs/toolkit";
-import {Movie} from "../../features/movies/movie";
-import {Genre} from "../../features/movies/genre";
+import {Movie} from "../../features/movies/models/movie";
+import {Genre} from "../../features/movies/models/genre";
 
 export const moviesAdapter = createEntityAdapter<Movie>();
 export const moviesInitialState = moviesAdapter.getInitialState();

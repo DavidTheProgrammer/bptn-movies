@@ -1,5 +1,5 @@
 import {PopularMoviesResponse} from "./responseTypes";
-import {Movie} from "../../features/movies/movie";
+import {Movie} from "../../features/movies/models/movie";
 
 export const popularMoviesResponseTransformer = (popularMoviesResponse: PopularMoviesResponse): Movie[] => {
     return popularMoviesResponse.results.map(popularMovie => {

@@ -1,4 +1,4 @@
-import {Genre} from "../../features/movies/genre";
+import {Genre} from "../../features/movies/models/genre";
 
 interface MovieResponse {
     adult: boolean,

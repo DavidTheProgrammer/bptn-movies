@@ -6,6 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {store} from "./app/store";
 import {apiSlice} from "./app/api/apiSlice";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import LikedMovies from "./features/movies/LikedMovies";
+import PopularMovies from "./features/movies/PopularMovies";
 
 // Get all genres for movies on app initialisation
 store.dispatch(apiSlice.endpoints.getMovieGenres.initiate(null));
@@ -16,7 +19,15 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <App/>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<App/>}>
+                        <Route index element={<PopularMovies/>}/>
+                        <Route path="liked" element={<LikedMovies/>}>
+                        </Route>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
         </Provider>
     </React.StrictMode>
 );

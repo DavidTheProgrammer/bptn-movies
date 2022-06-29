@@ -1,5 +1,5 @@
 import {createEntityAdapter, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Movie} from "./movie";
+import {Movie} from "./models/movie";
 
 const likedMoviesAdapter = createEntityAdapter<Movie>();
 const likedMoviesInitialState = likedMoviesAdapter.getInitialState();
