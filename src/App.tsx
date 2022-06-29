@@ -1,10 +1,15 @@
 import React from 'react';
+import Navbar from "./features/navbar/Navbar";
+import {Outlet} from "react-router-dom";
 
 const App = () => {
     return (
-        <div className="app">
-
-        </div>
+        <>
+            <Navbar/>
+            <div className="pt-16">
+                <Outlet/>
+            </div>
+        </>
     );
 }
 
