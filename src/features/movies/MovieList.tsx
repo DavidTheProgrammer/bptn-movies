@@ -9,8 +9,8 @@ const MovieList = ({movieIds}: MovieListProps) => {
         <div className="container flex flex-wrap justify-center py-8 pb-40">
             {movieIds.map(movieId => {
                 return (
-                    <div className="m-2">
-                        <MovieListItem key={movieId} movieId={movieId}/>
+                    <div key={movieId} className="m-2">
+                        <MovieListItem movieId={movieId}/>
                     </div>
                 );
             })}

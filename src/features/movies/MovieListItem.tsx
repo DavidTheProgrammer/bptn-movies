@@ -1,7 +1,6 @@
 import {useAppDispatch, useAppSelector, useBuildImageUrl, useGetMovieGenres, useIsMovieLiked} from "../../app/hooks";
 import {selectPopularMovieById} from "../../app/api/apiSlice";
-
-import {FaHeart} from 'react-icons/fa';
+import {FaExclamationTriangle, FaHeart} from "react-icons/fa";
 import {Movie} from "./models/movie";
 import {likeMovie, unlikeMovie} from "./likedMoviesSlice";
 
@@ -64,10 +63,11 @@ export const MovieListItem = ({movieId}: MovieListItemProps) => {
 const MovieListItemError = () => {
     return (
         <div className="rounded shadow-md w-[320px] h-[450px]">
-            <div className="flex items-center text-center text-red-400 justify-center h-full p-4 pl-8">
+            <div className="flex flex-col items-center text-center text-red-400 justify-center h-full p-4 pl-8">
                 <h1 className="font-medium text-xl mb-2">
                     Something went wrong loading this movie
                 </h1>
+                <FaExclamationTriangle size={40}/>
             </div>
         </div>
     )
