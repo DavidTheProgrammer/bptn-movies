@@ -1,33 +1,61 @@
-import {useAppSelector, useBuildImageUrl, useIsMovieLiked} from "../../app/hooks";
+import {useAppDispatch, useAppSelector, useBuildImageUrl, useGetMovieGenres, useIsMovieLiked} from "../../app/hooks";
 import {selectPopularMovieById} from "../../app/api/apiSlice";
 
 import {FaHeart} from 'react-icons/fa';
+import {Movie} from "./models/movie";
+import {likeMovie, unlikeMovie} from "./likedMoviesSlice";
 
 type MovieListItemProps = {
     movieId: number,
 }
 
 export const MovieListItem = ({movieId}: MovieListItemProps) => {
+    const dispatch = useAppDispatch();
     const movie = useAppSelector(state => selectPopularMovieById(state, movieId));
     const posterUrl = useBuildImageUrl(movie?.posterPath ?? "");
     const isMovieLiked = useIsMovieLiked(movie?.id ?? 0);
+    const genres = useGetMovieGenres(movie?.genreIds ?? []);
 
     if (!movie) {
         return <MovieListItemError/>;
     }
 
+    function handleLikeCLick(movie: Movie, isMovieLiked: boolean) {
+        if (isMovieLiked) {
+            dispatch(unlikeMovie(movie));
+        } else {
+            dispatch(likeMovie(movie));
+        }
+    }
+
     return (
-        <div className="transition-all cursor-pointer max-w-[320px] rounded shadow-md hover:shadow-xl hover:scale-105">
+        <div className="max-w-[320px] rounded shadow-md">
             <div className="relative">
                 <img className="rounded" src={posterUrl} alt={`Poster for ${movie.title}`}/>
                 <div className="absolute text-right top-0 right-0 left-0 py-4 pr-4 bottom-0">
-                    <button className="hover:scale-105">
+                    <button className="transition-all hover:scale-110"
+                            title="Add to liked movies"
+                            onClick={() => handleLikeCLick(movie, isMovieLiked)}>
                         <FaHeart color={isMovieLiked ? "red" : "white"} size={40}/>
                     </button>
                 </div>
             </div>
-            <div className="p-2">
+            <div className="p-2 pb-4">
                 <h1 className="font-medium text-lg mb-2">{movie.title}</h1>
+                <div className="p-2 pl-0">
+                    Rating: {movie.voteAverage}/10 <span className="text-slate-400">({movie.voteCount})</span>
+                </div>
+                <div className="my-2">
+                    {
+                        genres.map(genre => {
+                            return (
+                                <span key={genre!.id}
+                                      className="p-1 px-2 rounded bg-blue-100 mr-2 mb-2">
+                                    {genre!.name}
+                                </span>
+                            )
+                        })}
+                </div>
             </div>
         </div>
     );
