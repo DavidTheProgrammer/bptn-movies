@@ -11,6 +11,8 @@ import {createSelector} from "@reduxjs/toolkit";
 import {RootState} from "../store";
 
 export const apiSlice = createApi({
+    // Keep cached data alive for 5 minutes
+    keepUnusedDataFor: 300,
     baseQuery: fetchBaseQuery({
         baseUrl: `${process.env.REACT_APP_TMDB_API_URL}`
     }),

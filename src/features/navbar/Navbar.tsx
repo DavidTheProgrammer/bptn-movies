@@ -21,7 +21,7 @@ const Navbar = () => {
     const location = useLocation();
 
     return (
-        <header className="left-0 right-0 z-5 bg-slate-100 rounded-b-lg h-16 shadow-lg">
+        <header className="left-0 right-0 bg-slate-100 rounded-b-lg h-16 shadow-lg">
             <nav className="h-full w-full px-8 flex justify-between items-center">
                 <div className="text-2xl font-medium">
                     Movies
