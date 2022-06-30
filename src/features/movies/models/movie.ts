@@ -7,5 +7,6 @@ export interface Movie {
     releaseDate: string;
     adult: boolean;
     voteAverage: number;
+    voteCount: number;
     genreIds: Array<number>;
 }

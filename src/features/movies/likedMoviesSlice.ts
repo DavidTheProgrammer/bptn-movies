@@ -21,8 +21,12 @@ export const likedMoviesSlice = createSlice({
     }
 });
 
+// Reducer
+export const likedMoviesReducer = likedMoviesSlice.reducer;
+
 // Actions
 export const {likeMovie, unlikeMovie} = likedMoviesSlice.actions;
 
+
 // Selectors
-export const {selectEntities, selectById} = likedMoviesAdapter.getSelectors();
+export const {selectEntities: selectLikedMovies, selectById: selectLikedMovieById} = likedMoviesAdapter.getSelectors();

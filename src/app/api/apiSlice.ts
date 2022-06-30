@@ -1,7 +1,14 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {GenresResponse, PopularMoviesResponse} from "./responseTypes";
 import {popularMoviesResponseTransformer} from "./responseTransformers";
-import {genresAdapter, genresInitialState, moviesAdapter, moviesInitialState} from "./responseAdapters";
+import {
+    movieGenresAdapter,
+    movieGenresInitialState,
+    popularMoviesAdapter,
+    popularMoviesInitialState
+} from "./responseAdapters";
+import {createSelector} from "@reduxjs/toolkit";
+import {RootState} from "../store";
 
 export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({
@@ -12,17 +19,39 @@ export const apiSlice = createApi({
             query: () => `/movie/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}`,
             transformResponse(responseData: PopularMoviesResponse) {
                 const movies = popularMoviesResponseTransformer(responseData);
-                return moviesAdapter.setAll(moviesInitialState, movies);
+                return popularMoviesAdapter.setAll(popularMoviesInitialState, movies);
             }
         }),
         getMovieGenres: builder.query({
             query: () => `/genre/movie/list?api_key=${process.env.REACT_APP_TMDB_API_KEY}`,
             transformResponse(responseData: GenresResponse) {
                 const genres = responseData.genres;
-                return genresAdapter.setAll(genresInitialState, genres);
+                return movieGenresAdapter.setAll(movieGenresInitialState, genres);
             }
         }),
     }),
 });
 
+// Queries
 export const {useGetPopularMoviesQuery, useGetMovieGenresQuery} = apiSlice;
+
+// Selectors
+const selectPopularMoviesResult = apiSlice.endpoints.getPopularMovies.select(undefined);
+const selectPopularMovies = createSelector(
+    selectPopularMoviesResult,
+    popularMoviesResult => popularMoviesResult.data,
+);
+export const {
+    selectAll: selectAllPopularMovies,
+    selectIds: selectPopularMovieIds,
+    selectById: selectPopularMovieById,
+} = popularMoviesAdapter.getSelectors<RootState>(state => selectPopularMovies(state) ?? popularMoviesInitialState);
+
+const selectMovieGenresResult = apiSlice.endpoints.getMovieGenres.select(undefined);
+const selectMovieGenres = createSelector(
+    selectMovieGenresResult,
+    movieGenresResult => movieGenresResult.data,
+);
+export const {
+    selectById: selectMovieGenreById
+} = movieGenresAdapter.getSelectors<RootState>(state => selectMovieGenres(state) ?? movieGenresInitialState);

@@ -5,9 +5,12 @@ import {Outlet} from "react-router-dom";
 const App = () => {
     return (
         <>
-            <Navbar/>
-            <div className="pt-16">
-                <Outlet/>
+            <div className="h-screen overflow-y-hidden">
+                <Navbar/>
+                <div className="h-full overflow-y-auto">
+                    <Outlet/>
+                </div>
+
             </div>
         </>
     );

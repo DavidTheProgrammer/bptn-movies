@@ -11,7 +11,7 @@ import LikedMovies from "./features/movies/LikedMovies";
 import PopularMovies from "./features/movies/PopularMovies";
 
 // Get all genres for movies on app initialisation
-store.dispatch(apiSlice.endpoints.getMovieGenres.initiate(null));
+store.dispatch(apiSlice.endpoints.getMovieGenres.initiate(undefined));
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

@@ -12,7 +12,8 @@ export const popularMoviesResponseTransformer = (popularMoviesResponse: PopularM
             backdropPath: popularMovie.backdrop_path,
             posterPath: popularMovie.poster_path,
             releaseDate: popularMovie.release_date,
-            voteAverage: popularMovie.vote_average
-        })
+            voteAverage: popularMovie.vote_average,
+            voteCount: popularMovie.vote_count,
+        });
     });
 }
