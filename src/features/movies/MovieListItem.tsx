@@ -5,7 +5,7 @@ import {FaHeart} from 'react-icons/fa';
 import {Movie} from "./models/movie";
 import {likeMovie, unlikeMovie} from "./likedMoviesSlice";
 
-type MovieListItemProps = {
+interface MovieListItemProps {
     movieId: number,
 }
 
@@ -29,7 +29,7 @@ export const MovieListItem = ({movieId}: MovieListItemProps) => {
     }
 
     return (
-        <div className="max-w-[320px] rounded shadow-md">
+        <div className="w-[320px] rounded shadow-md">
             <div className="relative">
                 <img className="rounded" src={posterUrl} alt={`Poster for ${movie.title}`}/>
                 <div className="absolute text-right top-0 right-0 left-0 py-4 pr-4 bottom-0">
@@ -45,16 +45,16 @@ export const MovieListItem = ({movieId}: MovieListItemProps) => {
                 <div className="p-2 pl-0">
                     Rating: {movie.voteAverage}/10 <span className="text-slate-400">({movie.voteCount})</span>
                 </div>
-                <div className="my-2">
+                <div className="my-2 flex flex-wrap">
                     {
                         genres.map(genre => {
                             return (
-                                <span key={genre!.id}
-                                      className="p-1 px-2 rounded bg-blue-100 mr-2 mb-2">
-                                    {genre!.name}
-                                </span>
+                                <div key={genre!.id} className="p-1 px-2 rounded bg-blue-100 mr-2 mb-2">
+                                    <span>{genre!.name}</span>
+                                </div>
                             )
-                        })}
+                        })
+                    }
                 </div>
             </div>
         </div>

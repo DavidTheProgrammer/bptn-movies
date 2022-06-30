@@ -1,3 +1,21 @@
-export const MovieList = () => {
-    return <h1>Movie List</h1>;
+import {MovieListItem} from "./MovieListItem";
+
+interface MovieListProps {
+    movieIds: number[]
 }
+
+const MovieList = ({movieIds}: MovieListProps) => {
+    return (
+        <div className="container flex flex-wrap justify-center py-8 pb-40">
+            {movieIds.map(movieId => {
+                return (
+                    <div className="m-2">
+                        <MovieListItem key={movieId} movieId={movieId}/>
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+
+export default MovieList;

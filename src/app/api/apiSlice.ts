@@ -42,7 +42,6 @@ const selectPopularMovies = createSelector(
     popularMoviesResult => popularMoviesResult.data,
 );
 export const {
-    selectAll: selectAllPopularMovies,
     selectIds: selectPopularMovieIds,
     selectById: selectPopularMovieById,
 } = popularMoviesAdapter.getSelectors<RootState>(state => selectPopularMovies(state) ?? popularMoviesInitialState);

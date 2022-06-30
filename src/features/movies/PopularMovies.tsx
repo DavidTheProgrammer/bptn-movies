@@ -1,46 +1,29 @@
 import {RingLoader} from "react-spinners";
-import {useGetPopularMoviesQuery} from "../../app/api/apiSlice";
-import {Movie} from "./models/movie";
-import {MovieListItem} from "./MovieListItem";
+import {selectPopularMovieIds, useGetPopularMoviesQuery} from "../../app/api/apiSlice";
+import {useAppSelector} from "../../app/hooks";
+import MovieList from "./MovieList";
 
 const PopularMovies = () => {
-    //
-    const {
-        data: movies,
-        error,
-        isLoading,
-    } = useGetPopularMoviesQuery(undefined);
+    const {isSuccess, isError} = useGetPopularMoviesQuery(undefined);
+    const popularMovieIds = useAppSelector(state => selectPopularMovieIds(state)) as number[];
 
-    let component = <PopularMoviesLoading/>;
-    // if (error) {
-    //
-    // }
-
-    const movie: Movie = {
-        "adult": false,
-        "backdropPath": "/wcKFYIiVDvRURrzglV9kGu7fpfY.jpg",
-        "genreIds": [
-            14,
-            28,
-            12
-        ],
-        "id": 453395,
-        "overview": "Doctor Strange, with the help of mystical allies both old and new, traverses the mind-bending and dangerous alternate realities of the Multiverse to confront a mysterious new adversary.",
-        "posterPath": "/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg",
-        "releaseDate": "2022-05-04",
-        "title": "Doctor Strange in the Multiverse of Madness",
-        "voteAverage": 7.5,
-        "voteCount": 3659
+    let component;
+    if (isError) {
+        // Should show error
+    } else if (isSuccess) {
+        component = <MovieList movieIds={popularMovieIds}/>
+    } else {
+        component = <PopularMoviesLoading/>
     }
 
     return (
         <div className="container h-full mx-auto">
-            <h1 className="text-3xl font-medium py-4">Popular</h1>
-            {/*{component}*/}
-            <MovieListItem movieId={movie.id}/>
+            <h1 className="text-3xl font-medium px-8 py-4">Popular</h1>
+            {component}
         </div>
     );
 }
+export default PopularMovies;
 
 const PopularMoviesLoading = () => {
     return (
@@ -51,4 +34,3 @@ const PopularMoviesLoading = () => {
     );
 }
 
-export default PopularMovies;

@@ -12,6 +12,7 @@ export const useIsMovieLiked = (movieId: number) => {
     const movie = useAppSelector(state => selectLikedMovieById(state.likedMovies, movieId));
     return movie !== undefined;
 }
+
 export const useGetMovieGenres = (genreIds: number[]) => {
     return useAppSelector(state => {
         return genreIds.map(genreId => selectMovieGenreById(state, genreId));
